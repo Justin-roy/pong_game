@@ -119,13 +119,15 @@ class GameProvider extends ChangeNotifier {
 
   moveEnemy() {
     enemyX = _ballX;
+
+    notifyListeners();
   }
 
   // Game Start
   gameStart() {
     isGameStart = true;
     mobileSenosor();
-    Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
       // update Direction
       updateDirection();
       // move ball
@@ -149,8 +151,8 @@ class GameProvider extends ChangeNotifier {
   mobileSenosor() {
     accelerometerEvents.listen((AccelerometerEvent event) {
       mobiledir = event.x;
+      notifyListeners();
     });
-    notifyListeners();
   }
 
   // Player Dead
@@ -180,9 +182,9 @@ class GameProvider extends ChangeNotifier {
 
   // Move Bricks
   moveBricks() {
-    if (mobiledir >= 0.9) {
+    if (mobiledir >= 1) {
       moveLeft();
-    } else if (mobiledir <= -0.9) {
+    } else if (mobiledir <= -1) {
       moveRight();
     }
     notifyListeners();

@@ -14,7 +14,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Game Provider
     var gameProvider = Provider.of<GameProvider>(context);
-    gameProvider.moveBricks();
+    //  gameProvider.moveBricks();
+
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => gameProvider.moveBricks(),
+    );
 
     return RawKeyboardListener(
       focusNode: FocusNode(),
